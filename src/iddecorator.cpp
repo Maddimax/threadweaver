@@ -159,6 +159,18 @@ JobInterface::Status IdDecorator::status() const
     return job()->status();
 }
 
+ProgressInterface *IdDecorator::setProgressInterface(ProgressInterface* interface)
+{
+    Q_ASSERT(d1);
+    return job()->setProgressInterface(interface);
+}
+
+ProgressInterface *IdDecorator::progressInterface() const
+{
+    Q_ASSERT(d1);
+    return job()->progressInterface();
+}
+
 Executor *IdDecorator::executor() const
 {
     Q_ASSERT(d1);
@@ -191,6 +203,11 @@ const ThreadWeaver::JobInterface *IdDecorator::job() const
 JobInterface *IdDecorator::job()
 {
     return reinterpret_cast<JobInterface *>(d1);
+}
+
+IdDecorator *IdDecorator::jobDecorator()
+{
+    return dynamic_cast<IdDecorator *>(reinterpret_cast<JobInterface*>(d1));
 }
 
 void IdDecorator::setAutoDelete(bool onOff)
